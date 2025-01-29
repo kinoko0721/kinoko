@@ -16,6 +16,8 @@
       margin-top: 20px;
       border: 2px solid #000;
       position: relative;
+      width: 100%; /* 画布宽度自适应 */
+      height: auto;
     }
     #controlPanel {
       margin-top: 20px;
@@ -53,12 +55,13 @@
       position: absolute;
       bottom: 20px;
       font-size: 24px;
+      width: 45%; /* 按钮宽度自适应 */
     }
     #leftDoorBtn {
-      left: 20px;
+      left: 5%;
     }
     #rightDoorBtn {
-      right: 20px;
+      right: 5%;
     }
     #changeEnemyImageButton {
       margin-top: 30px;
@@ -67,6 +70,21 @@
     }
     #fileInput {
       display: none; /* 隐藏文件输入框 */
+    }
+
+    /* 手机自适应 */
+    @media (max-width: 768px) {
+      body {
+        font-size: 18px;  /* 调整字体大小以适应小屏幕 */
+      }
+      #controlPanel {
+        flex-direction: column; /* 垂直排列控制面板 */
+        width: 100%;
+      }
+      button {
+        width: 100%;  /* 按钮宽度自适应 */
+        font-size: 20px;
+      }
     }
   </style>
 </head>
@@ -88,8 +106,11 @@
   <div id="startButton">
     <button onclick="startGame()">开始游戏</button>
   </div>
-  <button id="leftDoorBtn">A</button>
-  <button id="rightDoorBtn">D</button>
+
+  <!-- 改为触摸按钮 -->
+  <button id="leftDoorBtn">左门</button>
+  <button id="rightDoorBtn">右门</button>
+  
   <div id="changeEnemyImageButton">
     <button onclick="triggerFileInput()">更改敌人图片</button>
   </div>
@@ -248,22 +269,13 @@
       }
     }
 
-    document.addEventListener('keydown', (event) => {
-      if (event.key === 'a') leftDoorOpen = true;
-      if (event.key === 'd') rightDoorOpen = true;
-    });
+    // 替代键盘事件
+    leftDoorBtn.addEventListener('touchstart', () => leftDoorOpen = true);
+    leftDoorBtn.addEventListener('touchend', () => leftDoorOpen = false);
 
-    document.addEventListener('keyup', (event) => {
-      if (event.key === 'a') leftDoorOpen = false;
-      if (event.key === 'd') rightDoorOpen = false;
-    });
+    rightDoorBtn.addEventListener('touchstart', () => rightDoorOpen = true);
+    rightDoorBtn.addEventListener('touchend', () => rightDoorOpen = false);
 
-    // 按钮点击事件模拟键盘按键
-    leftDoorBtn.addEventListener('mousedown', () => leftDoorOpen = true);
-    leftDoorBtn.addEventListener('mouseup', () => leftDoorOpen = false);
-
-    rightDoorBtn.addEventListener('mousedown', () => rightDoorOpen = true);
-    rightDoorBtn.addEventListener('mouseup', () => rightDoorOpen = false);
   </script>
 </body>
 </html>
